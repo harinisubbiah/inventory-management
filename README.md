@@ -70,4 +70,4 @@ This project was an exercise in:
 - Structuring vanilla JS into single-responsibility modules (storage / inventory logic / notifications / charts / analytics / app controller) to keep the codebase maintainable without a bundler
 
 # Author
-
+**Harini S** 
