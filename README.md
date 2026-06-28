@@ -50,6 +50,7 @@ python3 -m http.server 8080
 
 Then visit `http://localhost:8080`.
 
+---
 
 ## Learning outcomes
 
@@ -59,6 +60,6 @@ This project was an exercise in:
 - Drawing real, interactive charts directly on `<canvas>` without a charting library
 - Designing a consistent design-token system (CSS custom properties) that powers both a marketing landing page and an admin dashboard, including dark/light theming
 - Structuring vanilla JS into single-responsibility modules (storage / inventory logic / notifications / charts / analytics / app controller) to keep the codebase maintainable without a bundler
-
+---
 # Author
 **Harini S** 
