@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Manifest</title>
+
+  <!-- Auth guard: redirect immediately if there's no demo session,
+       before the rest of the page paints. -->
+  <script>
+    if (localStorage.getItem('manifest-auth') === null) {
+      window.location.replace('login.html');
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="dash-shell">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <a href="index.html" class="brand sidebar-brand">
+        <span class="brand-mark">M</span>
+        Manifest
+      </a>
+
+      <nav class="sidebar-nav">
+        <button class="sidebar-link is-active" data-section="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Dashboard
+        </button>
+        <button class="sidebar-link" data-section="inventory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          Inventory
+        </button>
+        <a href="analytics.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+          Analytics
+        </a>
+        <button class="sidebar-link" data-section="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 11h6M9 15h6"/></svg>
+          Reports
+        </button>
+        <button class="sidebar-link" data-section="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0A1.7 1.7 0 0 0 10 3.2V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+          Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="theme-toggle" aria-label="Toggle dark and light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <span>Appearance</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="dash-main">
+
+      <!-- ----- Top nav ----- -->
+      <header class="topbar">
+        <button class="topbar-burger" id="sidebarToggle" aria-label="Open sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+
+        <div class="topbar-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="topSearchInput" placeholder="Search products…" aria-label="Search products">
+        </div>
+
+        <div class="topbar-actions">
+          <div class="dropdown">
+            <button class="icon-btn icon-btn--ghost" id="notifToggle" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              <span class="badge" id="notifBadge">0</span>
+            </button>
+            <div class="dropdown-panel dropdown-panel--notif" id="notifPanel">
+              <div class="dropdown-head">Recent activity</div>
+              <ul id="notifList"></ul>
+              <button class="dropdown-foot" onclick="document.querySelector('[data-section=reports]').click()">View all in Reports</button>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="profile-toggle" id="profileToggle">
+              <span class="profile-avatar" id="profileInitial">A</span>
+              <span class="profile-name" id="profileEmail">admin@manifest.app</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profilePanel">
+              <div class="dropdown-head">Signed in as<br><strong id="profileEmail2">admin@manifest.app</strong></div>
+              <button class="dropdown-item" id="logoutBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                Log out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ----- Content ----- -->
+      <main class="dash-content">
+
+        <!-- ============ DASHBOARD SECTION ============ -->
+        <section class="dash-section is-active" id="section-dashboard">
+          <div class="page-head">
+            <div>
+              <h2>Overview</h2>
+              <p>Live snapshot of everything in stock right now.</p>
+            </div>
+            <button class="btn btn-primary" data-open-add-product>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Add product
+            </button>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="stat-card-icon stat-card-icon--copper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8v8l9 5 9-5V8"/></svg>
+              </span>
+              <div>
+                <span class="stat-card-label">Total products</span>
+                <span class="stat-card-value" id="statTotalProducts">0</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-icon stat-card-icon--teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </span>
+              <div>
+                <span class="stat-card-label">Total inventory value</span>
+                <span class="stat-card-value" id="statTotalValue">$0.00</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-icon stat-card-icon--rose">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2 19h20L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+              </span>
+              <div>
+                <span class="stat-card-label">Low / out of stock</span>
+                <span class="stat-card-value" id="statLowStock">0</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-card-icon stat-card-icon--blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg>
+              </span>
+              <div>
+                <span class="stat-card-label">Updated, last 24h</span>
+                <span class="stat-card-value" id="statRecentCount">0</span>
+                <span class="stat-card-sub" id="statRecentSub">No updates yet</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h3>Inventory distribution</h3>
+              <p class="chart-card-sub">Value share by top products</p>
+              <canvas id="chartDistribution"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Product quantities</h3>
+              <p class="chart-card-sub">Highest stocked items</p>
+              <canvas id="chartQuantities"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Stock status</h3>
+              <p class="chart-card-sub">In stock vs. low vs. out</p>
+              <canvas id="chartStatus"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ INVENTORY SECTION ============ -->
+        <section class="dash-section" id="section-inventory">
+          <div class="page-head">
+            <div>
+              <h2>Inventory</h2>
+              <p>Search, sort, filter, and manage every product.</p>
+            </div>
+            <button class="btn btn-primary" data-open-add-product>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Add product
+            </button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="topbar-search topbar-search--inline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" id="inventorySearchInput" placeholder="Search by product name…">
+            </div>
+
+            <select id="statusFilter" class="select-control">
+              <option value="all">All statuses</option>
+              <option value="in-stock">In Stock</option>
+              <option value="low-stock">Low Stock</option>
+              <option value="out-of-stock">Out of Stock</option>
+            </select>
+
+            <div class="toolbar-spacer"></div>
+
+            <button class="btn btn-ghost" id="exportCsvBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              Export CSV
+            </button>
+            <button class="btn btn-ghost" id="exportJsonBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              Export JSON
+            </button>
+          </div>
+
+          <p class="table-meta" id="inventoryCount">0 of 0 products</p>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th data-sort="name">Product name <span class="sort-arrow"></span></th>
+                  <th data-sort="quantity">Quantity <span class="sort-arrow"></span></th>
+                  <th data-sort="price">Price <span class="sort-arrow"></span></th>
+                  <th data-sort="value">Total value <span class="sort-arrow"></span></th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============ REPORTS SECTION (activity log) ============ -->
+        <section class="dash-section" id="section-reports">
+          <div class="page-head">
+            <div>
+              <h2>Reports</h2>
+              <p>An audit trail of every add, update, and delete.</p>
+            </div>
+            <button class="btn btn-ghost" id="clearActivityLogBtn">Clear log</button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Timestamp</th><th>Action</th><th>Product</th><th>Detail</th></tr>
+              </thead>
+              <tbody id="activityLogBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============ SETTINGS SECTION ============ -->
+        <section class="dash-section" id="section-settings">
+          <div class="page-head">
+            <div>
+              <h2>Settings</h2>
+              <p>Account and app preferences.</p>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3>Account</h3>
+              <label class="field">
+                <span>Email</span>
+                <input type="email" value="admin@manifest.app" disabled>
+              </label>
+              <label class="field">
+                <span>Display name</span>
+                <input type="text" placeholder="Add a display name" disabled>
+              </label>
+              <span class="ui-only-note">UI only — not yet wired to a real account</span>
+            </div>
+
+            <div class="settings-card">
+              <h3>Preferences</h3>
+              <label class="field-row">
+                <span>Email me low-stock alerts</span>
+                <input type="checkbox" class="switch" disabled>
+              </label>
+              <label class="field-row">
+                <span>Weekly inventory summary</span>
+                <input type="checkbox" class="switch" disabled checked>
+              </label>
+              <label class="field">
+                <span>Low-stock threshold</span>
+                <input type="number" value="10" disabled>
+              </label>
+              <span class="ui-only-note">UI only — threshold is fixed at 10 for this demo</span>
+            </div>
+
+            <div class="settings-card settings-card--danger">
+              <h3>Data</h3>
+              <p>These two actions are fully functional and affect your local data immediately.</p>
+              <button class="btn btn-ghost" id="resetDemoDataBtn">Reset to demo data</button>
+              <button class="btn btn-ghost" id="clearAllDataBtn">Clear all data</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== ADD / EDIT PRODUCT MODAL ===================== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="productModalTitle">Add product</h3>
+        <button class="icon-btn" id="productModalClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <form id="productForm" class="modal-body">
+        <input type="hidden" id="productId">
+        <label class="field">
+          <span>Product name</span>
+          <input type="text" id="productName" required maxlength="60" placeholder="e.g. Steel Hinge">
+        </label>
+        <div class="field-pair">
+          <label class="field">
+            <span>Quantity</span>
+            <input type="number" id="productQuantity" required min="0" step="1" placeholder="0">
+          </label>
+          <label class="field">
+            <span>Price ($)</span>
+            <input type="number" id="productPrice" required min="0" step="0.01" placeholder="0.00">
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="productModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="productModalSubmit">Add product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== CONFIRM (DELETE) MODAL ===================== -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-card modal-card--sm">
+      <div class="modal-head">
+        <h3>Delete product?</h3>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage">Are you sure?</p>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+          <button class="btn btn-danger" id="confirmAccept">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

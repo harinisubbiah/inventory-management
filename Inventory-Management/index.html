@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manifest — Inventory Management System</title>
+  <meta name="description" content="Manifest is a browser-based inventory management system built with vanilla HTML, CSS, and JavaScript — add stock, track value, and catch shortages in real time." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#home" class="brand">
+        <span class="brand-mark">M</span>
+        Manifest
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark and light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+        <a href="dashboard.html" class="btn btn-primary" style="padding:10px 20px; font-size:14px;">Launch Dashboard</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#about">About</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="dashboard.html">Launch Dashboard</a>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="home">
+    <div class="hero-grid"></div>
+    <div class="scan-line" id="scanLine"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">
+          <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+          SKU-001 · Live Stock System
+        </span>
+
+        <h1>Every unit, <span class="accent">accounted for.</span></h1>
+
+        <p class="hero-sub">
+          Manifest turns a spreadsheet habit into a real inventory system.
+          Add stock, search and update it instantly, and watch total value
+          recalculate the moment anything changes — built on the same core
+          logic as the original C program, now running in the browser.
+        </p>
+
+        <div class="hero-actions">
+          <a href="dashboard.html" class="btn btn-primary" id="ctaDashboard">
+            Launch Inventory Dashboard
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#features" class="link-cta">
+            See what it can do
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Animated statistics -->
+      <div class="stat-strip">
+        <div class="stat-tag">
+          <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="stat-num" data-target="1248" data-suffix="">0</div>
+          <div class="stat-label">Products tracked</div>
+        </div>
+        <div class="stat-tag">
+          <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="stat-num" data-target="482" data-prefix="$" data-suffix="K+">0</div>
+          <div class="stat-label">Inventory value monitored</div>
+        </div>
+        <div class="stat-tag">
+          <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="stat-num" data-target="3214" data-suffix="">0</div>
+          <div class="stat-label">Stock updates logged</div>
+        </div>
+        <div class="stat-tag">
+          <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+          <div class="stat-num" data-target="99.9" data-decimals="1" data-suffix="%">0</div>
+          <div class="stat-label">Duplicate-free accuracy</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="features-head reveal">
+        <div>
+          <span class="section-tag">// 02 — Capabilities</span>
+          <h2 class="section-heading">Everything the C program did. Plus everything it couldn't.</h2>
+        </div>
+        <p class="section-sub">Core inventory logic ported one-to-one, wrapped in features that only make sense in a browser.</p>
+      </div>
+
+      <div class="feature-grid">
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <h3>Add product</h3>
+          <p>Register new stock with name, quantity, and price — validated and checked against existing entries before it's saved.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </div>
+          <h3>Search, as you type</h3>
+          <p>Find any product instantly — the same linear search from the C program, now firing on every keystroke.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg>
+          </div>
+          <h3>Update qty &amp; price</h3>
+          <p>Adjust stock levels or pricing in place — totals, status badges, and analytics recalculate immediately.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3>Full inventory display</h3>
+          <p>A sortable, filterable table of every product — the browser equivalent of the C program's "display all" option.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/></svg>
+          </div>
+          <h3>Total value, always current</h3>
+          <p>Quantity × price, summed across the whole inventory, recalculated the instant anything changes.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2 19h20L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          </div>
+          <h3>Duplicate detection</h3>
+          <p>Trying to add a product that already exists raises a toast instead of a silent, hidden duplicate row.</p>
+          <span class="tag">core logic</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18" opacity="0"/><path d="M12 3a9 9 0 0 1 0 18 9 9 0 0 1 0-18Z"/><path d="M12 3v18"/></svg>
+          </div>
+          <h3>Dark &amp; light mode</h3>
+          <p>One token system, two themes — your choice persists across visits via local storage.</p>
+          <span class="tag">added in the rebuild</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          </div>
+          <h3>Export to CSV / JSON</h3>
+          <p>Download the full inventory in either format — for a spreadsheet hand-off or a backup snapshot.</p>
+          <span class="tag">added in the rebuild</span>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+          </div>
+          <h3>Canvas-drawn charts</h3>
+          <p>Stock distribution, quantities, and status breakdown — rendered with raw Canvas, no charting library.</p>
+          <span class="tag">added in the rebuild</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-copy reveal">
+        <span class="section-tag">// 03 — Background</span>
+        <h2 class="section-heading">From a C console program to a real product.</h2>
+        <p>
+          The original version of Manifest ran in a terminal: a C program
+          with a struct array, a printf-driven menu, and seven operations
+          for keeping a stockroom honest. This rebuild keeps that same
+          logic — the same checks, the same arithmetic — and gives it an
+          interface a stockroom manager would actually want to open.
+        </p>
+        <p>
+          Every screen here is hand-built with HTML, CSS, and JavaScript.
+          No frameworks, no UI kit — so every interaction, animation, and
+          layout decision is one made on purpose.
+        </p>
+
+        <ul class="about-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Inventory logic ported directly from the original C functions
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Zero dependencies — vanilla HTML5, CSS3, and ES6 JavaScript only
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Persists to local storage, so the dashboard survives a refresh
+          </li>
+        </ul>
+      </div>
+
+      <div class="manifest-card reveal">
+        <div class="manifest-card-head">
+          <div class="dot-row"><span></span><span></span><span></span></div>
+          <span>inventory.c → inventory.js</span>
+        </div>
+        <pre><span class="c">// original C struct</span>
+<span class="k">struct</span> Product {
+  <span class="k">char</span> name[50];
+  <span class="k">int</span> quantity;
+  <span class="k">float</span> price;
+};
+
+<span class="c">// ported to a plain JS object</span>
+<span class="k">const</span> product = {
+  name: <span class="s">"Steel Hinge"</span>,
+  quantity: <span class="s">240</span>,
+  price: <span class="s">4.5</span>,
+};</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="brand-mark">M</span>
+          Manifest
+        </a>
+        <p>A vanilla HTML, CSS &amp; JavaScript inventory management system — rebuilt from a C console program.</p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="analytics.html">Analytics</a>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <a href="README.md">README</a>
+          <a href="#home">Source structure</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 Manifest. Built for learning, not a real warehouse.</span>
+      <span class="barcode"><span></span><span></span><span></span><span></span><span></span></span>
+    </div>
+  </footer>
+
+  <script>
+    /* ----------------------------------------------------------------------
+       Landing-page-only interactivity. Kept inline (rather than in /js)
+       because it's purely presentational and specific to this page —
+       app.js / inventory.js etc. are reserved for the dashboard logic
+       we build starting in Step 2.
+    ---------------------------------------------------------------------- */
+
+    // -- Theme toggle (persisted in localStorage) --
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('manifest-theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      themeToggle.classList.add('is-toggling');
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('manifest-theme', next);
+      setTimeout(() => themeToggle.classList.remove('is-toggling'), 300);
+    });
+
+    // -- Mobile nav drawer --
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+      });
+    });
+
+    // -- Navbar background once the page scrolls --
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('is-scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    // -- Trigger the hero scan-line sweep once on load --
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('scanLine').classList.add('run');
+    });
+
+    // -- Scroll-reveal for sections (IntersectionObserver) --
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // -- Animated counters for the hero stat strip --
+    function animateCount(el) {
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const value = target * eased;
+        el.textContent = prefix + value.toFixed(decimals) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.classList.add('pop');
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const statEls = document.querySelectorAll('.stat-num');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    statEls.forEach(el => statObserver.observe(el));
+
+    // -- Button ripple effect --
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const circle = document.createElement('span');
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.style.width = circle.style.height = size + 'px';
+        circle.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        circle.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        circle.classList.add('ripple', 'is-active');
+        btn.appendChild(circle);
+        circle.addEventListener('animationend', () => circle.remove());
+      });
+    });
+  </script>
+</body>
+</html>

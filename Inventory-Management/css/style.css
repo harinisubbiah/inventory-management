@@ -1,0 +1,754 @@
+/* ==========================================================================
+   style.css
+   --------------------------------------------------------------------------
+   Base styles + design tokens + landing page layout.
+
+   Design tokens live in :root as CSS variables so the dashboard and
+   analytics pages (built in later steps) can reuse the exact same
+   palette/type scale and so dark/light mode is just a variable swap,
+   not a duplicated stylesheet.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* -- Color: dark theme (default) --
+     Deep navy/ink base with a warm copper accent (think warehouse
+     shipping-tag amber) and a cool teal accent (the "in-stock" signal
+     color used again in the dashboard later). */
+  --ink-950: #070b14;
+  --ink-900: #0e1526;
+  --ink-800: #131c33;
+  --ink-700: #1b2742;
+  --border: rgba(255, 255, 255, 0.08);
+
+  --copper-300: #ffc89a;
+  --copper-400: #ffb073;
+  --copper-500: #ff8a3d;
+  --copper-600: #e8722a;
+
+  --teal-300: #7ee8da;
+  --teal-400: #2dd4bf;
+
+  --text-hi: #eef1f8;
+  --text-mid: #a8b0c3;
+  --text-low: #6b7488;
+
+  --bg: var(--ink-950);
+  --surface: var(--ink-900);
+  --surface-raised: var(--ink-800);
+  --text-primary: var(--text-hi);
+  --text-secondary: var(--text-mid);
+  --text-tertiary: var(--text-low);
+  --accent: var(--copper-500);
+  --accent-strong: var(--copper-400);
+  --accent-2: var(--teal-400);
+  --line: var(--border);
+  --shadow-color: rgba(7, 11, 20, 0.55);
+
+  /* -- Type -- */
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* -- Scale & rhythm -- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --container: 1180px;
+  --gap-section: clamp(64px, 9vw, 128px);
+
+  /* -- Motion -- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Light theme override — flips surfaces, keeps the same accent identity */
+:root[data-theme="light"] {
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --text-primary: #11162a;
+  --text-secondary: #4a5269;
+  --text-tertiary: #828aa0;
+  --line: rgba(17, 22, 42, 0.08);
+  --shadow-color: rgba(17, 22, 42, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & base
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: min(100% - 48px, var(--container));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+/* Tiny barcode glyph used next to eyebrows / stats — drawn with CSS only,
+   reused throughout as the project's recurring "scan" motif. */
+.barcode {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.barcode span {
+  display: block;
+  width: 2px;
+  background: var(--accent-strong);
+  opacity: 0.8;
+}
+.barcode span:nth-child(1) { height: 60%; }
+.barcode span:nth-child(2) { height: 100%; }
+.barcode span:nth-child(3) { height: 40%; }
+.barcode span:nth-child(4) { height: 80%; }
+.barcode span:nth-child(5) { height: 55%; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.section-heading {
+  font-size: clamp(28px, 3.4vw, 40px);
+  margin-top: 10px;
+  max-width: 640px;
+}
+
+.section-sub {
+  margin-top: 14px;
+  max-width: 540px;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 15px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.btn:active { transform: translateY(1px) scale(0.99); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--copper-400), var(--copper-600));
+  color: #1a0f06;
+  box-shadow: 0 10px 30px -10px rgba(255, 138, 61, 0.55);
+}
+.btn-primary:hover {
+  box-shadow: 0 14px 34px -8px rgba(255, 138, 61, 0.7);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover {
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
+}
+
+/* Ripple element injected by JS on click — see animations.css for keyframe */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navbar
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.navbar.is-scrolled {
+  border-bottom-color: var(--line);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--copper-400), var(--teal-400));
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink-950);
+  font-size: 15px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.nav-links a {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  position: relative;
+  transition: color 0.2s var(--ease);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 1.5px;
+  background: var(--accent-strong);
+  transition: width 0.25s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.theme-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  color: var(--text-secondary);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.3s var(--ease);
+}
+.theme-toggle:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+.theme-toggle svg { width: 17px; height: 17px; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+.nav-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: none;
+  place-items: center;
+  color: var(--text-secondary);
+}
+.nav-toggle svg { width: 18px; height: 18px; }
+.nav-toggle .icon-close { display: none; }
+.nav-toggle.is-open .icon-menu { display: none; }
+.nav-toggle.is-open .icon-close { display: block; }
+
+/* Mobile nav drawer */
+.mobile-menu {
+  position: fixed;
+  top: 73px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 16px;
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.mobile-menu.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu a {
+  padding: 14px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--line);
+}
+.mobile-menu a:last-child { border-bottom: none; }
+@media (min-width: 761px) {
+  .mobile-menu { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding: 168px 0 96px;
+  overflow: hidden;
+  background:
+    radial-gradient(720px 420px at 82% -8%, rgba(255, 138, 61, 0.22), transparent 60%),
+    radial-gradient(600px 460px at 8% 18%, rgba(45, 212, 191, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--ink-950), var(--ink-900) 70%, var(--bg));
+}
+:root[data-theme="light"] .hero {
+  background:
+    radial-gradient(720px 420px at 82% -8%, rgba(255, 138, 61, 0.16), transparent 60%),
+    radial-gradient(600px 460px at 8% 18%, rgba(45, 212, 191, 0.12), transparent 60%),
+    linear-gradient(180deg, #ffffff, var(--bg));
+}
+
+/* faint grid + scan-line — the project's signature motif: the hero
+   gets "scanned" once on load, like a barcode reader passing over it */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 75%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 140px;
+  background: linear-gradient(180deg, rgba(255, 178, 110, 0.5), transparent);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 760px;
+}
+
+.hero h1 {
+  margin-top: 18px;
+  font-size: clamp(40px, 5.6vw, 68px);
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--copper-400), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  margin-top: 22px;
+  font-size: 18px;
+  max-width: 560px;
+  color: var(--text-secondary);
+}
+
+.hero-actions {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-actions .link-cta {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-actions .link-cta:hover { color: var(--text-primary); }
+
+/* -- Stat strip: the "animated statistics" requirement, styled like a
+      row of inventory tags rather than a generic stat band. -- */
+.stat-strip {
+  margin-top: 88px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.stat-tag {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(10px);
+  padding: 26px 22px;
+  position: relative;
+}
+.stat-tag .barcode {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0.5;
+}
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.stat-label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   5. Features
+   -------------------------------------------------------------------------- */
+.features {
+  padding: var(--gap-section) 0;
+}
+
+.features-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.feature-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 28px 26px;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-strong);
+  box-shadow: 0 22px 44px -22px var(--shadow-color);
+}
+
+.feature-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(255,138,61,0.18), rgba(45,212,191,0.14));
+  color: var(--accent-strong);
+  margin-bottom: 18px;
+}
+.feature-icon svg { width: 20px; height: 20px; }
+
+.feature-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+}
+.feature-card p {
+  margin-top: 8px;
+  font-size: 14.5px;
+  color: var(--text-secondary);
+}
+.feature-card .tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   6. About
+   -------------------------------------------------------------------------- */
+.about {
+  padding: var(--gap-section) 0;
+  border-top: 1px solid var(--line);
+}
+.about .container {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.about-copy p {
+  margin-top: 16px;
+  color: var(--text-secondary);
+  font-size: 15.5px;
+  max-width: 480px;
+}
+
+.about-list {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.about-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  color: var(--text-secondary);
+}
+.about-list li svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  flex-shrink: 0;
+  color: var(--accent-2);
+}
+
+/* "manifest card" — a stylized terminal/ledger panel showing the
+   C-struct-to-JS-object lineage of the project; the visual anchor
+   of the About section. */
+.manifest-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: 0 30px 60px -30px var(--shadow-color);
+}
+.manifest-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.manifest-card-head span {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+.dot-row {
+  display: flex;
+  gap: 6px;
+}
+.dot-row span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.manifest-card pre {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  white-space: pre;
+}
+.manifest-card pre .k { color: var(--accent-2); }
+.manifest-card pre .s { color: var(--copper-300); }
+.manifest-card pre .c { color: var(--text-tertiary); }
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 56px 0 36px;
+}
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.footer-brand p {
+  margin-top: 10px;
+  max-width: 280px;
+  font-size: 13.5px;
+  color: var(--text-tertiary);
+}
+.footer-cols {
+  display: flex;
+  gap: 56px;
+}
+.footer-col h4 {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13.5px;
+  color: var(--text-tertiary);
+  padding: 6px 0;
+  transition: color 0.2s var(--ease);
+}
+.footer-col a:hover { color: var(--accent-strong); }
+
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+}
+.footer-bottom .barcode { opacity: 0.6; }
+
+/* --------------------------------------------------------------------------
+   8. Scroll-reveal hook (toggled by JS via IntersectionObserver)
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.reveal.is-visible {
+  animation: revealUp 0.7s var(--ease) forwards;
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 980px) {
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .about .container { grid-template-columns: 1fr; gap: 40px; }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: grid; }
+  .hero { padding: 140px 0 72px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-cols { gap: 32px; }
+  .footer .container { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .stat-strip { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

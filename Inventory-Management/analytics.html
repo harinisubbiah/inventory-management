@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics — Manifest</title>
+
+  <script>
+    if (localStorage.getItem('manifest-auth') === null) {
+      window.location.replace('login.html');
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="dash-shell">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <a href="index.html" class="brand sidebar-brand">
+        <span class="brand-mark">M</span>
+        Manifest
+      </a>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a href="dashboard.html#inventory" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          Inventory
+        </a>
+        <a href="analytics.html" class="sidebar-link is-active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+          Analytics
+        </a>
+        <a href="dashboard.html#reports" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 11h6M9 15h6"/></svg>
+          Reports
+        </a>
+        <a href="dashboard.html#settings" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h0A1.7 1.7 0 0 0 10 3.2V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark and light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <span>Appearance</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="dash-main">
+      <header class="topbar">
+        <button class="topbar-burger" id="sidebarToggle" aria-label="Open sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <h1 class="page-title">Analytics</h1>
+
+        <div class="topbar-actions">
+          <div class="dropdown">
+            <button class="profile-toggle" id="profileToggle">
+              <span class="profile-avatar" id="profileInitial">A</span>
+              <span class="profile-name" id="profileEmail">admin@manifest.app</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="dropdown-panel dropdown-panel--profile" id="profilePanel">
+              <div class="dropdown-head">Signed in as<br><strong id="profileEmail2">admin@manifest.app</strong></div>
+              <button class="dropdown-item" id="logoutBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+                Log out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dash-content">
+        <div class="page-head">
+          <div>
+            <h2>Inventory analytics</h2>
+            <p>A rollup of the numbers that matter most about your current stock.</p>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+
+          <div class="analytics-card analytics-card--wide reveal">
+            <span class="stat-card-icon stat-card-icon--teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+            <span class="analytics-label">Total inventory value</span>
+            <span class="analytics-value" id="aTotalValue" data-target="0">$0.00</span>
+            <span class="analytics-sub">Quantity × price, summed across every product</span>
+          </div>
+
+          <div class="analytics-card reveal">
+            <span class="stat-card-icon stat-card-icon--blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg>
+            </span>
+            <span class="analytics-label">Average product price</span>
+            <span class="analytics-value" id="aAvgPrice">$0.00</span>
+            <span class="analytics-sub" id="aTotalProducts">across 0 products</span>
+          </div>
+
+          <div class="analytics-card reveal">
+            <span class="stat-card-icon stat-card-icon--copper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </span>
+            <span class="analytics-label">Highest priced product</span>
+            <span class="analytics-value" id="aHighestPrice">—</span>
+            <span class="analytics-sub" id="aHighestPriceName">No products yet</span>
+          </div>
+
+          <div class="analytics-card reveal">
+            <span class="stat-card-icon stat-card-icon--rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </span>
+            <span class="analytics-label">Lowest priced product</span>
+            <span class="analytics-value" id="aLowestPrice">—</span>
+            <span class="analytics-sub" id="aLowestPriceName">No products yet</span>
+          </div>
+
+          <div class="analytics-card reveal">
+            <span class="stat-card-icon stat-card-icon--teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8v8l9 5 9-5V8"/></svg>
+            </span>
+            <span class="analytics-label">Highest quantity product</span>
+            <span class="analytics-value" id="aHighestQty">—</span>
+            <span class="analytics-sub" id="aHighestQtyName">No products yet</span>
+          </div>
+
+          <div class="analytics-card reveal">
+            <span class="stat-card-icon stat-card-icon--rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2 19h20L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            </span>
+            <span class="analytics-label">Low &amp; out of stock</span>
+            <span class="analytics-value" id="aLowStock">0</span>
+            <span class="analytics-sub">Products at or below the threshold</span>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/analytics.js"></script>
+  <script>
+    // -- Theme (shared pattern) --
+    const root = document.documentElement;
+    root.setAttribute('data-theme', InventoryStorage.getTheme());
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      InventoryStorage.setTheme(next);
+    });
+
+    // -- Mobile sidebar --
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.querySelector('.dash-shell').classList.toggle('sidebar-open');
+    });
+    document.getElementById('sidebarScrim').addEventListener('click', () => {
+      document.querySelector('.dash-shell').classList.remove('sidebar-open');
+    });
+
+    // -- Profile dropdown + logout --
+    const profileToggle = document.getElementById('profileToggle');
+    const profilePanel = document.getElementById('profilePanel');
+    profileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profilePanel.classList.toggle('is-open');
+    });
+    document.addEventListener('click', () => profilePanel.classList.remove('is-open'));
+
+    const authUser = InventoryStorage.getAuthUser();
+    if (authUser?.email) {
+      document.getElementById('profileEmail').textContent = authUser.email;
+      document.getElementById('profileEmail2').textContent = authUser.email;
+      document.getElementById('profileInitial').textContent = authUser.email.charAt(0).toUpperCase();
+    }
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      InventoryStorage.logout();
+      window.location.href = 'login.html';
+    });
+
+    // -- Render analytics --
+    function money(n) {
+      return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function animateValue(el, target, formatter, duration = 1200) {
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatter(target * eased);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const products = Inventory.getAll();
+    const a = Analytics.compute(products);
+
+    animateValue(document.getElementById('aTotalValue'), a.totalValue, money);
+    animateValue(document.getElementById('aAvgPrice'), a.averagePrice, money);
+    document.getElementById('aTotalProducts').textContent = `across ${a.totalProducts} product${a.totalProducts === 1 ? '' : 's'}`;
+    document.getElementById('aLowStock').textContent = a.lowStockCount + a.outOfStockCount;
+
+    if (a.highestPriced) {
+      document.getElementById('aHighestPrice').textContent = money(a.highestPriced.price);
+      document.getElementById('aHighestPriceName').textContent = a.highestPriced.name;
+    }
+    if (a.lowestPriced) {
+      document.getElementById('aLowestPrice').textContent = money(a.lowestPriced.price);
+      document.getElementById('aLowestPriceName').textContent = a.lowestPriced.name;
+    }
+    if (a.highestQuantity) {
+      document.getElementById('aHighestQty').textContent = a.highestQuantity.quantity;
+      document.getElementById('aHighestQtyName').textContent = a.highestQuantity.name;
+    }
+
+    // -- Scroll-reveal --
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
