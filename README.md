@@ -5,12 +5,12 @@ A browser-based inventory management system built with **plain HTML5, CSS3, and 
 ## Features
 
 **Core inventory logic**
-- ✔ Add new products, with input validation
-- ✔ Search products, filtered as you type
-- ✔ Update quantity and price independently
-- ✔ Display the complete inventory in a sortable, filterable table
-- ✔ Calculate total inventory value (`Σ quantity × price`), recalculated live
-- ✔ Duplicate product detection (case-insensitive name match)
+- Add new products, with input validation
+- Search products, filtered as you type
+- Update quantity and price independently
+- Display the complete inventory in a sortable, filterable table
+- Calculate total inventory value (`Σ quantity × price`), recalculated live
+- Duplicate product detection (case-insensitive name match)
 
 **Dashboard**
 - Sidebar navigation (Dashboard, Inventory, Analytics, Reports, Settings)
