@@ -51,15 +51,6 @@ python3 -m http.server 8080
 Then visit `http://localhost:8080`.
 
 
-## Future improvements
-
-- Product categories/tags and category-based filtering
-- Bulk import from CSV (the inverse of the existing export)
-- Pagination for very large inventories
-- A real backend + database instead of `localStorage`, with actual authentication
-- Per-user accounts and role-based permissions (admin vs. read-only)
-- Unit tests for the `Inventory` module's core logic
-
 ## Learning outcomes
 
 This project was an exercise in:
